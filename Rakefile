@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "rails_join"
   gem.homepage = "http://github.com/marcandre/rails_join"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Make Array#join be html_safe aware}
+  gem.description = %Q{Use [...].join without worrying}
   gem.email = "github@marc-andre.ca"
   gem.authors = ["Marc-Andre Lafortune"]
   # dependencies defined in Gemfile

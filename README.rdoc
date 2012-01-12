@@ -1,16 +1,34 @@
 = rails_join
 
-Description goes here.
+Doing a `join` on an array containing html safe strings will produce an html unsafe string.
 
-== Contributing to rails_join
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+Rails provides a helper called `safe_join` that will always produce an html safe string.
+
+This gem modifies `Array#join` so that it returns an html safe string when the first element is an html safe string. This is similar to `s1 + s2` returning an html safe string if and only if `s1` is html safe. If the first element is not an html safe string (or does not exist), then `Array#join` returns a normal string, as was previously the case. Again, this is similar to `s1 + s2` returning a normal string if `s1` is a normal string, even if `s2` is an html safe string.
+
+    links = [link_to("Home", "/"), link_to("Profile", "/profile")]
+    desired = links[0] + " > " + links[1]
+    joined  = links.join(" > ")
+    joined == desired # => false
+    joined.html_safe? # => false
+    require 'rails_join'
+    joined  = links.join(" > ")
+    joined == desired # => true
+    joined.html_safe? # => true
+
+== Installation
+
+Simply add to your Gemfile:
+
+  gem "rails_join"
+
+Run `bundle install` and you're done.
+
+Runs on all versions of Ruby and all versions of Rails >= 3.0
+
+== Why?
+
+See: https://github.com/rails/rails/pull/3716
 
 == Copyright
 
